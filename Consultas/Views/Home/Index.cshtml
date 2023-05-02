@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Consultas.Models.ElementoConsulta>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section Styles {
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="tablaEmpleados">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpleadoNombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpleadoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartamentoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartamentoNombre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpleadoNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpleadoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartamentoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartamentoNombre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#tablaEmpleados').DataTable();
+
+        })
+    </script>
+}

@@ -1,0 +1,35 @@
+﻿.bs-callout + .bs-callout {
+    margin-top: -5px;
+}
+
+.bs-callout-warning {
+    border-left-color: #aa6708;
+}
+
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+
+html {
+    font-family: sans-serif;
+}
+
+.container {
+    max-width: 100%;
+}
+
+#tablaEmpleadosRespaldo {
+    display: none
+}
