@@ -12,8 +12,25 @@ builder.Services.AddDbContext<ConsultasContext>(
     option => option.UseSqlServer(builder.Configuration.GetConnectionString("ConexionDB"))
 );
 
-builder.Services.AddScoped<IConsultasService, JoinsService>();
-builder.Services.AddScoped<IConsultasRepository, JoinsRepository>();
+builder.Services.AddSingleton<DapperContext>();
+
+var ORM = builder.Configuration["Parametros:ORM"];
+switch (ORM)
+{
+    case "DAPPER":
+        builder.Services.AddScoped<IConsultasService, DapperService>();
+        builder.Services.AddScoped<IConsultasRepository, DapperRepository>();
+        break;
+    case "LINQ":
+        builder.Services.AddScoped<IConsultasService, JoinsService>();
+        builder.Services.AddScoped<IConsultasRepository, JoinsRepository>();
+        break;
+    default:
+        builder.Services.AddScoped<IConsultasService, JoinsService>();
+        builder.Services.AddScoped<IConsultasRepository, JoinsRepository>();
+        break;
+}
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
