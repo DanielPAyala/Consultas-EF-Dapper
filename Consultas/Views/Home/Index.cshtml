@@ -6,11 +6,43 @@
 
 @section Styles {
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+    <script src="~/js/funciones.js" asp-append-version="true"></script>
 }
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="bs-callout text-center bs-callout-warning" id="callout-inputgroup-container-body">
+                <h4>@Html.Raw(ViewBag.Titulo)</h4>
+                <p>
+                    @Html.Raw(ViewBag.Descripcion)
+                    <br />
+                    <code>@ViewBag.Codigo</code>
+                </p>
+                <p>
+                    <button type="button" class="btn btn-primary btn-lg"
+                            id="btnExport" onclick="exportarReporteExcel('tablaEmpleadosRespaldo')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel-fill" viewBox="0 0 16 16">
+                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM5.884 6.68 8 9.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 10l2.233 2.68a.5.5 0 0 1-.768.64L8 10.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 10 5.116 7.32a.5.5 0 1 1 .768-.64z" />
+                        </svg>
+                        Exportar información
+                    </button>
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-3 text-center" style="margin-top:20px">
+            <img style="width:250px;height:150px"
+                 src="data:image/jpeg;base64, @ViewBag.Imagen"
+                 id="imagenDiagramaVenn" />
+        </div>
+
+    </div>
+</div>
+
 <table class="table" id="tablaEmpleados">
     <thead>
         <tr>
@@ -26,41 +58,46 @@
             <th>
                 @Html.DisplayNameFor(model => model.DepartamentoNombre)
             </th>
-            <th></th>
+            @*<th></th>*@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmpleadoNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmpleadoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartamentoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartamentoNombre)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpleadoNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpleadoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartamentoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartamentoNombre)
+                </td>
+                @*<td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>*@
+            </tr>
+        }
     </tbody>
 </table>
+
+<input id="nombreArchivo" type="hidden" value="@ViewBag.NombreArchivoExcel" />
+
+<table class="table" id="tablaEmpleadosRespaldo"></table>
 
 @section Scripts {
     <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('#tablaEmpleados').DataTable();
-
+        $(document).ready(function () {
+            $('#tablaEmpleadosRespaldo').html($('#tablaEmpleados').html())
+            configuracionPaginadorVista('tablaEmpleados')
         })
     </script>
 }

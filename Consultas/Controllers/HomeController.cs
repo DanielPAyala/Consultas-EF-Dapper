@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Consultas.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IConsultasService _consultasService;
@@ -24,7 +24,22 @@ namespace Consultas.Controllers
         {
             if (indice < 0 || indice > 6) indice = 0;
             var lista = ObtenerConsulta(indice);
+
+            var path = _configuration["Parametros:RutaTrabajo"];
+            var argumento = ObtenerNarrativa(indice, path);
+
+            ObtenerParametrosRetorno(argumento);
+
             return View(lista);
+        }
+
+        private void ObtenerParametrosRetorno(Argumento argumento)
+        {
+            ViewBag.Titulo = argumento.Titulo;
+            ViewBag.Descripcion = argumento.Descripcion;
+            ViewBag.Codigo = argumento.Codigo;
+            ViewBag.Imagen = argumento.Imagen;
+            ViewBag.NombreArchivoExcel = argumento.NombreArchivoExcel;
         }
 
         public IActionResult Privacy()
