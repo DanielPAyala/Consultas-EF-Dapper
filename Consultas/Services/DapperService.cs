@@ -27,5 +27,10 @@ namespace Consultas.Services
         {
             return _consultasRepository.ConsultaTotal();
         }
+
+        public List<ElementoConsulta> ConsultaDepartamentosConEmpleados()
+        {
+            return _consultasRepository.ConsultaDepartamentosConEmpleados();
+        }
     }
 }

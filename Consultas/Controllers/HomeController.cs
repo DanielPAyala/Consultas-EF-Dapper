@@ -69,7 +69,7 @@ namespace Consultas.Controllers
                     resultado = _consultasService.ConsultaTotal();
                     break;
                 case 3:
-
+                    resultado = _consultasService.ConsultaDepartamentosConEmpleados();
                     break;
                 case 4:
 

@@ -76,5 +76,21 @@ namespace Consultas.Repositories
 
             return lista;
         }
+
+        public List<ElementoConsulta> ConsultaDepartamentosConEmpleados()
+        {
+            var lista = (from d in _context.Departamentos
+                         join e in _context.Empleados
+                         on d.DepartamentoId equals e.DepartamentoId
+                         select new ElementoConsulta
+                         {
+                             DepartamentoId = d.DepartamentoId,
+                             DepartamentoNombre = d.Nombre,
+                             EmpleadoId = e.EmpleadoId,
+                             EmpleadoNombre = e.Nombre
+                         }).ToList();
+
+            return lista;
+        }
     }
 }
