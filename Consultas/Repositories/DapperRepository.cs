@@ -49,5 +49,11 @@ namespace Consultas.Repositories
             var query = $"SELECT {camposSelect} FROM Departamento A INNER JOIN Empleado B ON A.DepartamentoId = B.DepartamentoId";
             return ConsultaGenerica(query);
         }
+
+        public List<ElementoConsulta> ConsultaDepartamentosEmpleadosDesconectados()
+        {
+            var query = $"SELECT {camposSelect} FROM Departamento A FULL OUTER JOIN Empleado B ON A.DepartamentoId = B.DepartamentoId WHERE A.DepartamentoId IS NULL OR B.DepartamentoId IS NULL";
+            return ConsultaGenerica(query);
+        }
     }
 }

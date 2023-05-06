@@ -92,5 +92,37 @@ namespace Consultas.Repositories
 
             return lista;
         }
+
+        public List<ElementoConsulta> ConsultaDepartamentosEmpleadosDesconectados()
+        {
+            //  Ids de los departamentos que si tienen empleados asociados
+            var deptosIds = _context.Empleados.Select(s => s.DepartamentoId).Distinct().ToList();
+
+            // Consulta de departamentos que no estan en 'deptosIds'
+            var consultaIzq = (from d in _context.Departamentos
+                               where !deptosIds.Contains(d.DepartamentoId)
+                               select new ElementoConsulta
+                               {
+                                   EmpleadoId = null,
+                                   EmpleadoNombre = null,
+                                   DepartamentoId = d.DepartamentoId,
+                                   DepartamentoNombre = d.Nombre
+                               }).ToList();
+
+            // Empleados sin departamento asociado
+            var consultaDer = (from e in _context.Empleados
+                               where e.DepartamentoId == null
+                               select new ElementoConsulta
+                               {
+                                   EmpleadoId = e.EmpleadoId,
+                                   EmpleadoNombre = e.Nombre,
+                                   DepartamentoId = null,
+                                   DepartamentoNombre = null
+                               }).ToList();
+
+            // Union de los dos listados
+            var lista = consultaIzq.Union(consultaDer).ToList();
+            return lista;
+        }
     }
 }
