@@ -62,6 +62,24 @@ namespace Consultas.Controllers
                 case 0:
                     resultado = _consultasService.ConsultaDepartamentos_ConsultaInclusiva();
                     break;
+                case 1:
+                    resultado = _consultasService.ConsultaDepartamentos_ConsultaExclusiva();
+                    break;
+                case 2:
+                    resultado = _consultasService.ConsultaTotal();
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+
+                    break;
+                case 6:
+
+                    break;
             }
             return resultado;
         }

@@ -17,5 +17,15 @@ namespace Consultas.Services
         {
             return _consultasRepository.ConsultaDepartamentos_ConsultaInclusiva();
         }
+
+        public List<ElementoConsulta> ConsultaDepartamentos_ConsultaExclusiva()
+        {
+            return _consultasRepository.ConsultaDepartamentos_ConsultaExclusiva();
+        }
+
+        public List<ElementoConsulta> ConsultaTotal()
+        {
+            return _consultasRepository.ConsultaTotal();
+        }
     }
 }

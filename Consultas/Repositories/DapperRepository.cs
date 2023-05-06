@@ -31,5 +31,17 @@ namespace Consultas.Repositories
             }
             return lista;
         }
+
+        public List<ElementoConsulta> ConsultaDepartamentos_ConsultaExclusiva()
+        {
+            var query = $"SELECT {camposSelect} FROM Departamento A LEFT JOIN Empleado B ON A.DepartamentoId = B.DepartamentoId WHERE B.DepartamentoId IS NULL";
+            return ConsultaGenerica(query);
+        }
+
+        public List<ElementoConsulta> ConsultaTotal()
+        {
+            var query = $"SELECT {camposSelect} FROM Departamento A FULL OUTER JOIN Empleado B ON A.DepartamentoId = B.DepartamentoId";
+            return ConsultaGenerica(query);
+        }
     }
 }
