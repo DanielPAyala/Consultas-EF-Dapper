@@ -142,5 +142,22 @@ namespace Consultas.Repositories
 
             return lista;
         }
+
+        public List<ElementoConsulta> ConsultaEmpleados_ConsultaExclusiva()
+        {
+            var lista = (from e in _context.Empleados
+                         join d in _context.Departamentos
+                         on e.DepartamentoId equals d.DepartamentoId
+                         into depto
+                         from departamento in depto.DefaultIfEmpty()
+                         where departamento == null
+                         select new ElementoConsulta
+                         {
+                             EmpleadoId = e.EmpleadoId,
+                             EmpleadoNombre = e.Nombre
+                         }).ToList();
+
+            return lista;
+        }
     }
 }

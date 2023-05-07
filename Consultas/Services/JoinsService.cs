@@ -42,5 +42,10 @@ namespace Consultas.Services
         {
             return _consultasRepository.ConsultaEmpleados_ConsultaInclusiva();
         }
+
+        public List<ElementoConsulta> ConsultaEmpleados_ConsultaExclusiva()
+        {
+            return _consultasRepository.ConsultaEmpleados_ConsultaExclusiva();
+        }
     }
 }

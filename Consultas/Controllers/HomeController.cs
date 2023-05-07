@@ -78,9 +78,11 @@ namespace Consultas.Controllers
                     resultado = _consultasService.ConsultaEmpleados_ConsultaInclusiva();
                     break;
                 case 6:
-
+                    resultado = _consultasService.ConsultaEmpleados_ConsultaExclusiva();
                     break;
             }
+
+            resultado = resultado.OrderBy(x => x.EmpleadoId).ThenBy(x => x.DepartamentoId).ToList();
             return resultado;
         }
     }

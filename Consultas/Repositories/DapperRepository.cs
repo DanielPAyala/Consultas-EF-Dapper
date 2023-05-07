@@ -61,5 +61,11 @@ namespace Consultas.Repositories
             var query = $"SELECT {camposSelect} FROM dbo.Departamento A RIGHT JOIN dbo.Empleado B ON A.DepartamentoId = B.DepartamentoId";
             return ConsultaGenerica(query);
         }
+
+        public List<ElementoConsulta> ConsultaEmpleados_ConsultaExclusiva()
+        {
+            var query = $"SELECT {camposSelect} FROM Departamento A RIGHT JOIN Empleado B ON A.DepartamentoId = B.DepartamentoId WHERE A.DepartamentoId IS NULL";
+            return ConsultaGenerica(query);
+        }
     }
 }
