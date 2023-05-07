@@ -75,7 +75,7 @@ namespace Consultas.Controllers
                     resultado = _consultasService.ConsultaDepartamentosEmpleadosDesconectados();
                     break;
                 case 5:
-
+                    resultado = _consultasService.ConsultaEmpleados_ConsultaInclusiva();
                     break;
                 case 6:
 

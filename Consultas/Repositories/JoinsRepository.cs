@@ -124,5 +124,23 @@ namespace Consultas.Repositories
             var lista = consultaIzq.Union(consultaDer).ToList();
             return lista;
         }
+
+        public List<ElementoConsulta> ConsultaEmpleados_ConsultaInclusiva()
+        {
+            var lista = (from e in _context.Empleados
+                         join d in _context.Departamentos
+                         on e.DepartamentoId equals d.DepartamentoId
+                         into depto
+                         from departamento in depto.DefaultIfEmpty()
+                         select new ElementoConsulta
+                         {
+                             EmpleadoId = e.EmpleadoId,
+                             EmpleadoNombre = e.Nombre,
+                             DepartamentoId = departamento != null ? departamento.DepartamentoId : null,
+                             DepartamentoNombre = departamento != null ? departamento.Nombre : null
+                         }).ToList();
+
+            return lista;
+        }
     }
 }
